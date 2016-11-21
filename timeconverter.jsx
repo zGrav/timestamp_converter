@@ -11,7 +11,7 @@ function timeConverter(t) {
 	const date = a.getDate();
 	const hour = a.getHours();
 	let min = a.getMinutes();
-	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 	const day = days[a.getDay()];
 
 
