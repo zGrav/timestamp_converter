@@ -36,59 +36,28 @@ function timeConverter(t, isCompact) {
 	}
 
 	if (Math.floor(a.getTime() / 1000) === Math.floor(onehour.getTime() / 1000)) {
-		if (isCompact) {
-			return '1 hour';
-		} else {
-			return '1 hour ago';
-		}
+		return isCompact ? '1 hour' : '1 hour ago';
 	}
 
 	if ((Math.floor(a.getTime() / 1000) < Math.floor(onehour.getTime() / 1000)) === false) {
 		if ((Math.floor(a.getTime() / 1000) < Math.floor(oneminute.getTime() / 1000)) === false) {
-			if (isCompact) {
-				return 'now';
-			} else {
-				return 'just now';
-			}
+			return isCompact ? 'now' : 'just now';
 		} else {
 			const mins = Math.floor(today.getTime() / 1000) - Math.floor(a.getTime() / 1000);
-			let ago = '';
 
-			if (isCompact) {
-				ago = Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min' : Math.floor(mins / 60) + ' mins';
-			} else {
-				ago = Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min ago' : Math.floor(mins / 60) + ' mins ago';
-			}
-
-			return ago;
+			return isCompact ? Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min' : Math.floor(mins / 60) + ' mins' : Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min ago' : Math.floor(mins / 60) + ' mins ago';
 		}
 	}
 
 	if (a.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)) {
 		return hour + ':' + min + ampm;
 	} else if (a.setHours(0, 0, 0, 0) === yesterday.setHours(0, 0, 0, 0)) {
-		if (isCompact) {
-			return 'Yesterday';
-		} else {
-			return 'Yesterday, ' + hour + ':' + min;
-		}
+		return isCompact ? 'Yesterday' : 'Yesterday, ' + hour + ':' + min;
 	} else if (a.setHours(0, 0, 0, 0) > sevendays.setHours(0, 0, 0, 0)) {
-		if (isCompact) {
-			return day;
-		} else {
-			return day + ', ' + hour + ':' + min;
-		}
+		return isCompact ? day : day + ', ' + hour + ':' + min;
 	} else if (year === today.getFullYear()) {
-		if (isCompact) {
-			return date + ' ' + month;
-		} else {
-			return date + ' ' + month + ', ' + hour + ':' + min + ampm;
-		}
+		return isCompact ? date + ' ' + month : date + ' ' + month + ', ' + hour + ':' + min + ampm;
 	} else {
-		if (isCompact) {
-			return date + ' ' + month + ' ' + year;
-		} else {
-			return date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ampm;
-		}
+		return isCompact ? date + ' ' + month + ' ' + year : date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ampm;
 	}
 }
