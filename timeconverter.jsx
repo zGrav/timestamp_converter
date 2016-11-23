@@ -60,10 +60,10 @@ function timeConverter(t, isCompact) {
 		if (is12hour) {
 			return isCompact ? month + ' ' + date : month + ' ' + date + ', ' + hour + ':' + min + ampm;
 		}
-		return isCompact ? date + ' ' + month : date + ' ' + month + ', ' + hour + ':' + min + ampm;
+		return isCompact ? date + ' ' + month : date + ' ' + month + ', ' + hour + ':' + min;
 	}
 	if (is12hour) {
 		return isCompact ? month + ' ' + date + ' ' + year : month + ' ' + date + ' ' + year + ', ' + hour + ':' + min + ampm;
 	}
-	return isCompact ? date + ' ' + month + ' ' + year : date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ampm;
+	return isCompact ? date + ' ' + month + ' ' + year : date + ' ' + month + ' ' + year + ', ' + hour + ':' + min;
 }
