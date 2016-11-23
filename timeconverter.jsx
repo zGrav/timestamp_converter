@@ -26,7 +26,7 @@ function timeConverter(t, isCompact) {
 	const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 	const day = days[a.getDay()];
 
-	const is12hour = today.toLocaleString(defaultLanguageCode()).endsWith('M') ? true : false;
+	const is12hour = today.toLocaleString(defaultLanguageCode()).endsWith('M');
 
 	let ampm = '';
 
@@ -42,22 +42,28 @@ function timeConverter(t, isCompact) {
 	if ((Math.floor(a.getTime() / 1000) < Math.floor(onehour.getTime() / 1000)) === false) {
 		if ((Math.floor(a.getTime() / 1000) < Math.floor(oneminute.getTime() / 1000)) === false) {
 			return isCompact ? 'now' : 'just now';
-		} else {
-			const mins = Math.floor(today.getTime() / 1000) - Math.floor(a.getTime() / 1000);
-
-			return isCompact ? Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min' : Math.floor(mins / 60) + ' mins' : Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min ago' : Math.floor(mins / 60) + ' mins ago';
 		}
+		const mins = Math.floor(today.getTime() / 1000) - Math.floor(a.getTime() / 1000);
+		if (isCompact) {
+			return Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min' : Math.floor(mins / 60) + ' mins';
+		}
+		return Math.floor(mins / 60) === 1 ? Math.floor(mins / 60) + ' min ago' : Math.floor(mins / 60) + ' mins ago';
 	}
 
 	if (a.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0)) {
 		return hour + ':' + min + ampm;
 	} else if (a.setHours(0, 0, 0, 0) === yesterday.setHours(0, 0, 0, 0)) {
-		return isCompact ? 'Yesterday' : 'Yesterday, ' + hour + ':' + min;
+		return isCompact ? 'Yesterday' : 'Yesterday, ' + hour + ':' + min + ampm;
 	} else if (a.setHours(0, 0, 0, 0) > sevendays.setHours(0, 0, 0, 0)) {
-		return isCompact ? day : day + ', ' + hour + ':' + min;
+		return isCompact ? day : day + ', ' + hour + ':' + min + ampm;
 	} else if (year === today.getFullYear()) {
+		if (is12hour) {
+			return isCompact ? month + ' ' + date : month + ' ' + date + ', ' + hour + ':' + min + ampm;
+		}
 		return isCompact ? date + ' ' + month : date + ' ' + month + ', ' + hour + ':' + min + ampm;
-	} else {
-		return isCompact ? date + ' ' + month + ' ' + year : date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ampm;
 	}
+	if (is12hour) {
+		return isCompact ? month + ' ' + date + ' ' + year : month + ' ' + date + ' ' + year + ', ' + hour + ':' + min + ampm;
+	}
+	return isCompact ? date + ' ' + month + ' ' + year : date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ampm;
 }
