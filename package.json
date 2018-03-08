@@ -1,0 +1,10 @@
+{
+  "name": "timestamp_converter",
+  "version": "1.0.0",
+  "description": "Converts unix timestamp to absolute format except <1h which uses relative.",
+  "main": "timeconverter.jsx",
+  "repository": "https://github.com/zGrav/timestamp_converter/",
+  "author": "David Silva <zgrav@null.net>",
+  "license": "BSD 2-clause",
+  "private": false
+}
